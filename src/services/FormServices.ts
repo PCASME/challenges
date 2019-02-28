@@ -1,7 +1,9 @@
+import { IChallenge } from "../model/IChallenge";
+
 export class FormService {
-    public static Save(data: any) {
-        return new Promise<any>((resolve, reject) => {
-            fetch('http://example.com/api/form/save', {
+    public static Save(data: IChallenge) {
+        return new Promise<{ id: number }>((resolve, reject) => {
+            fetch('http://localhost:10010/challenge', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',

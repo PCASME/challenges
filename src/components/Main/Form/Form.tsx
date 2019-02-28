@@ -10,27 +10,26 @@ import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Fade from '@material-ui/core/Fade/Fade';
 import { CircularProgress } from '@material-ui/core';
+import { IChallenge } from '../../../model/IChallenge';
 
-export interface Props extends WithStyles<typeof styles> {
-    onCancel?: (event: any) => void;
-    onSave?: (data: any) => Promise<void>;
+export interface IFormProps extends WithStyles<typeof styles> {
+    saveChallenge: (challenge: IChallenge) => void;
+    saving: boolean;
 }
 
 export interface State {
     title: string;
     description: string;
     category: string;
-    saving: boolean;
 }
 
-export class Form extends React.Component<Props, State> {
-    constructor(props: Props) {
+export class Form extends React.Component<IFormProps, State> {
+    constructor(props: IFormProps) {
         super(props);
         this.state = {
             title: '',
             description: '',
             category: '',
-            saving: false,
         }
     }
 
@@ -54,21 +53,18 @@ export class Form extends React.Component<Props, State> {
     ];
 
     private onSave(event: any) {
-        this.setState({ saving: true });
-        this.props.onSave && this.props.onSave({
+        this.props.saveChallenge({
             title: this.state.title,
             description: this.state.description,
             category: this.state.category,
-        }).then(() => {
-            this.setState({ saving: false });
-        })
+        });
     }
 
     render() {
         const { classes } = this.props;
         return (
             <Fade in={true}>
-                <form className={classes.container} noValidate autoComplete="off">
+                <form className={classes && classes.container} noValidate autoComplete="off">
                     <Grid container spacing={24}>
                         <Grid item xs={12}>
                             <Typography variant="h6" gutterBottom>
@@ -79,7 +75,7 @@ export class Form extends React.Component<Props, State> {
                             <TextField
                                 id="standard-title"
                                 label="Title"
-                                className={classes.textField}
+                                className={classes && classes.textField}
                                 value={this.state.title}
                                 onChange={this.handleChange('title')}
                                 margin="normal"
@@ -93,7 +89,7 @@ export class Form extends React.Component<Props, State> {
                                 rowsMax="4"
                                 value={this.state.description}
                                 onChange={this.handleChange('description')}
-                                className={classes.textField}
+                                className={classes && classes.textField}
                                 margin="normal"
                             />
                         </Grid>
@@ -102,12 +98,12 @@ export class Form extends React.Component<Props, State> {
                                 id="standard-select-category"
                                 select
                                 label="Category"
-                                className={classes.textField}
+                                className={classes && classes.textField}
                                 value={this.state.category}
                                 onChange={this.handleChange('category')}
                                 SelectProps={{
                                     MenuProps: {
-                                        className: classes.menu,
+                                        className: classes && classes.menu,
                                     },
                                 }}
                                 helperText="Please select your category"
@@ -121,16 +117,16 @@ export class Form extends React.Component<Props, State> {
                             </TextField>
                         </Grid>
                         <Grid item xs={12}>
-                            {this.state.saving ?
+                            {this.props.saving ?
                                 <CircularProgress />
                                 :
                                 <Fragment>
-                                    <Button variant="contained" size="medium" color="primary" className={classes.button} onClick={this.onSave.bind(this)}>
-                                        <SaveIcon className={classes.leftIcon} />
+                                    <Button variant="contained" size="medium" color="primary" className={classes && classes.button} onClick={this.onSave.bind(this)}>
+                                        <SaveIcon className={classes && classes.leftIcon} />
                                         Save
                                     </Button>
-                                    <Button variant="contained" size="medium" className={classes.button}>
-                                        <CancelIcon className={classes.leftIcon} />
+                                    <Button variant="contained" size="medium" className={classes && classes.button}>
+                                        <CancelIcon className={classes && classes.leftIcon} />
                                         Cancel
                                     </Button>
                                 </Fragment>
@@ -142,5 +138,4 @@ export class Form extends React.Component<Props, State> {
         );
     }
 }
-
 export default withStyles(styles)(Form);

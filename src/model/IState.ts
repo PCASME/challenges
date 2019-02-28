@@ -6,6 +6,7 @@ export enum Screens{
 
 export interface IState {
     screen?:Screens;
+    isLoading:boolean;
     challenges:IChallenge[],
     challengeForm?:IChallenge
 }

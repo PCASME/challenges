@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { styles } from './Main.styles';
-import { FormContainer } from './FormContainer/FormContainer';
+import FormContainer from '../../containers/FormContainer';
 import { Screens } from '../../model/IState';
 
 export interface IMainProps extends WithStyles<typeof styles> {
@@ -27,7 +27,7 @@ export class Main extends React.Component<IMainProps, IMainState> {
                     Welcome to challenge based learning
             </div>
                 {this.props.screen === Screens.CREATE_NEW_CHALLENGE &&
-                    <FormContainer />
+                <FormContainer/>
                 }
             </Fragment>
         );

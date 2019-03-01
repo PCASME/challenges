@@ -14,7 +14,7 @@ export interface IHeaderProps extends WithStyles<typeof styles> {
 
 export interface IHeaderState { }
 
-export class Header extends React.Component<IHeaderProps, IHeaderState> {
+class Header extends React.Component<IHeaderProps, IHeaderState> {
     constructor(props: IHeaderProps) {
         super(props);
         this.state = {
@@ -24,13 +24,13 @@ export class Header extends React.Component<IHeaderProps, IHeaderState> {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.root}>
+            <div className={classes && classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                        <IconButton className={classes && classes.menuButton} color="inherit" aria-label="Menu">
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
+                        <Typography variant="h6" color="inherit" className={classes && classes.grow}>
                             React
                         </Typography>
                         <Button onClick={this.props.createNewChallenge} color="inherit">Create challenge</Button>

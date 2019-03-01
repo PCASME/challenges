@@ -19,4 +19,22 @@ export class FormService {
             });
         });
     }
+
+    public static Get() {
+        return new Promise<IChallenge[]>((resolve, reject) => {
+            fetch('http://localhost:10010/challenges', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                method: 'GET',
+            }).then(async response => {
+                if (response.ok) {
+                    resolve((await response.json()).challenges);
+                }
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    }
 }

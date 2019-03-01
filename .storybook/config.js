@@ -1,7 +1,14 @@
-import { configure } from '@storybook/react';
+import * as storybook from '@storybook/react';
+import { setOptions } from '@storybook/addon-options';
+
+setOptions({
+  name: 'Challenges'
+});
+
+const req = require.context('../src/stories', true, /\.stories\.tsx$/)
 
 function loadStories() {
-  require('../src/stories');
+  req.keys().forEach((filename) => req(filename))
 }
 
-configure(loadStories, module);
+storybook.configure(loadStories, module);

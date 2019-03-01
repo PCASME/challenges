@@ -3,19 +3,37 @@ import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { styles } from './Main.styles';
 import FormContainer from '../../containers/FormContainer';
 import { Screens } from '../../model/IState';
+import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
+import { IChallenge } from '../../model/IChallenge';
+import  ChallengeCard  from './ChallengeCard/ChallengeCard';
 
 export interface IMainProps extends WithStyles<typeof styles> {
-    screen?: Screens;
+    screen: Screens;
     test: boolean;
+    isLoading: boolean;
+    challenges: IChallenge[];
+    getChallenges: () => void;
 }
 
 export interface IMainState { }
 
-export class Main extends React.Component<IMainProps, IMainState> {
+class Main extends React.Component<IMainProps, IMainState> {
     constructor(props: IMainProps) {
         super(props);
         this.state = {
         }
+    }
+
+    componentDidMount() {
+        this.props.getChallenges();
+    }
+
+    private renderChallenges() {
+        return this.props.challenges.map(challenge => {
+            return (
+                <ChallengeCard key={challenge.id} challenge={challenge} />
+            );
+        })
     }
 
     render() {
@@ -27,7 +45,14 @@ export class Main extends React.Component<IMainProps, IMainState> {
                     Welcome to challenge based learning
             </div>
                 {this.props.screen === Screens.CREATE_NEW_CHALLENGE &&
-                <FormContainer/>
+                    <FormContainer />
+                }
+
+                {this.props.screen === Screens.CHALLENGES_LIST && !this.props.isLoading && this.props.challenges &&
+                    this.renderChallenges()
+                }
+                {this.props.isLoading &&
+                    <CircularProgress />
                 }
             </Fragment>
         );

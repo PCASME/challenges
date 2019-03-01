@@ -22,8 +22,7 @@ export interface State {
     description: string;
     category: string;
 }
-
-export class Form extends React.Component<IFormProps, State> {
+class Form extends React.Component<IFormProps, State> {
     constructor(props: IFormProps) {
         super(props);
         this.state = {
@@ -64,7 +63,7 @@ export class Form extends React.Component<IFormProps, State> {
         const { classes } = this.props;
         return (
             <Fade in={true}>
-                <form className={classes && classes.container} noValidate autoComplete="off">
+                <form className={classes.container} noValidate autoComplete="off">
                     <Grid container spacing={24}>
                         <Grid item xs={12}>
                             <Typography variant="h6" gutterBottom>
@@ -75,7 +74,7 @@ export class Form extends React.Component<IFormProps, State> {
                             <TextField
                                 id="standard-title"
                                 label="Title"
-                                className={classes && classes.textField}
+                                className={classes.textField}
                                 value={this.state.title}
                                 onChange={this.handleChange('title')}
                                 margin="normal"
@@ -89,7 +88,7 @@ export class Form extends React.Component<IFormProps, State> {
                                 rowsMax="4"
                                 value={this.state.description}
                                 onChange={this.handleChange('description')}
-                                className={classes && classes.textField}
+                                className={classes.textField}
                                 margin="normal"
                             />
                         </Grid>
@@ -98,12 +97,12 @@ export class Form extends React.Component<IFormProps, State> {
                                 id="standard-select-category"
                                 select
                                 label="Category"
-                                className={classes && classes.textField}
+                                className={classes.textField}
                                 value={this.state.category}
                                 onChange={this.handleChange('category')}
                                 SelectProps={{
                                     MenuProps: {
-                                        className: classes && classes.menu,
+                                        className: classes.menu,
                                     },
                                 }}
                                 helperText="Please select your category"
@@ -121,12 +120,12 @@ export class Form extends React.Component<IFormProps, State> {
                                 <CircularProgress />
                                 :
                                 <Fragment>
-                                    <Button variant="contained" size="medium" color="primary" className={classes && classes.button} onClick={this.onSave.bind(this)}>
-                                        <SaveIcon className={classes && classes.leftIcon} />
+                                    <Button variant="contained" size="medium" color="primary" className={classes.button} onClick={this.onSave.bind(this)}>
+                                        <SaveIcon className={classes.leftIcon} />
                                         Save
                                     </Button>
-                                    <Button variant="contained" size="medium" className={classes && classes.button}>
-                                        <CancelIcon className={classes && classes.leftIcon} />
+                                    <Button variant="contained" size="medium" className={classes.button}>
+                                        <CancelIcon className={classes.leftIcon} />
                                         Cancel
                                     </Button>
                                 </Fragment>

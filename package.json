@@ -43,9 +43,12 @@
     "@babel/core": "^7.3.3",
     "@storybook/addon-actions": "^4.1.13",
     "@storybook/addon-links": "^4.1.13",
+    "@storybook/addon-options": "^4.1.13",
     "@storybook/addons": "^4.1.13",
     "@storybook/react": "^4.1.13",
     "@types/fetch-mock": "^7.2.3",
+    "@types/storybook__addon-actions": "^3.4.2",
+    "@types/storybook__react": "^4.0.1",
     "babel-loader": "^8.0.5",
     "fetch-mock": "^7.3.0"
   }
